@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <title>Connexion en cours…</title>
+  </head>
+  <body style="font-family: system-ui, sans-serif; color: #444; padding: 24px">
+    <p id="status">Connexion en cours…</p>
+    <!--
+      Pont de redirection MSAL v5 : reçoit la réponse de Microsoft Entra ID
+      et la transmet à la fenêtre principale (popup) ou y revient (redirection).
+    -->
+    <script type="module">
+      import { broadcastResponseToMainFrame } from '@azure/msal-browser/redirect-bridge';
+
+      const params = new URLSearchParams(window.location.search);
+      const status = document.getElementById('status');
+
+      if (params.has('admin_consent')) {
+        // Retour du lien de consentement administrateur (pas une connexion MSAL).
+        const granted = params.get('admin_consent') === 'True';
+        status.textContent = granted
+          ? 'Autorisation accordée pour votre organisation. Vous pouvez fermer cet onglet : les utilisateurs peuvent maintenant se connecter à Follow-up Manager.'
+          : "L'autorisation n'a pas été accordée. Vous pouvez fermer cet onglet.";
+        history.replaceState(null, '', window.location.pathname);
+      } else {
+        broadcastResponseToMainFrame().catch((error) => {
+          // Ne journalise que le code d'erreur : l'URL contient des données d'authentification.
+          console.error("Échec de la transmission de la réponse d'authentification :", error?.errorCode ?? 'inconnu');
+        });
+      }
+    </script>
+  </body>
+</html>

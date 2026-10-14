@@ -1,0 +1,735 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>Follow-up Manager — intro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=block" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      :root {
+        --night: #12062e;
+        --violet: #5b2be0;
+        --purple: #8b3dff;
+        --magenta: #d93fbf;
+        --pink: #ff7ac0;
+        --lavender: #efe9ff;
+        --white: #ffffff;
+        --ink-soft: rgba(239, 233, 255, 0.72);
+        --glass: rgba(255, 255, 255, 0.07);
+        --stroke: rgba(255, 255, 255, 0.16);
+        --done: #4ade80;
+        --wait: #fbbf24;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--night);
+      }
+
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--night);
+        font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+        color: var(--white);
+      }
+
+      /* ── Background (decorative) ── */
+      .bg {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .aurora {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+      }
+
+      .aurora-violet {
+        left: -300px;
+        top: -340px;
+        width: 1300px;
+        height: 1000px;
+        background: radial-gradient(circle, rgba(91, 43, 224, 0.75), transparent 68%);
+      }
+
+      .aurora-pink {
+        right: -320px;
+        bottom: -380px;
+        width: 1300px;
+        height: 1000px;
+        background: radial-gradient(circle, rgba(217, 63, 191, 0.5), transparent 66%);
+      }
+
+      .aurora-blue {
+        right: 260px;
+        top: -400px;
+        width: 900px;
+        height: 700px;
+        background: radial-gradient(circle, rgba(96, 120, 255, 0.3), transparent 70%);
+      }
+
+      .vignette {
+        background: radial-gradient(ellipse 80% 75% at 50% 50%, transparent 45%, rgba(10, 3, 30, 0.7) 100%);
+      }
+
+      /* ── Hero frame: brand column + inbox panel ── */
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        gap: 120px;
+        padding: 120px 160px;
+      }
+
+      .brand {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: flex-start;
+        min-width: 0;
+      }
+
+      .logo {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin-bottom: 44px;
+        perspective: 1400px;
+      }
+
+      .bloom {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 520px;
+        height: 520px;
+        margin: -260px 0 0 -260px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(217, 63, 191, 0.5), rgba(91, 43, 224, 0.28) 40%, transparent 68%);
+        filter: blur(18px);
+      }
+
+      .tile {
+        position: absolute;
+        inset: 0;
+        border-radius: 52px;
+        transform-style: preserve-3d;
+        background:
+          radial-gradient(120% 90% at 20% 0%, rgba(255, 255, 255, 0.28), transparent 45%),
+          linear-gradient(150deg, #6a3cff 0%, #7b2cf0 42%, #b43ad8 72%, #ff5fae 100%);
+        box-shadow:
+          inset 0 2px 0 rgba(255, 255, 255, 0.55),
+          inset 0 -2px 0 rgba(255, 120, 200, 0.6),
+          inset 0 -26px 40px rgba(255, 95, 174, 0.35),
+          0 34px 60px rgba(10, 0, 40, 0.6),
+          0 0 60px rgba(139, 61, 255, 0.45);
+      }
+
+      .tile-sheen-clip {
+        position: absolute;
+        inset: 0;
+        border-radius: 52px;
+        overflow: hidden;
+      }
+
+      .tile-sheen {
+        position: absolute;
+        top: -40%;
+        left: 0;
+        width: 45%;
+        height: 180%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+        transform: rotate(22deg);
+        mix-blend-mode: overlay;
+      }
+
+      .envelope {
+        position: absolute;
+        left: 35px;
+        top: 68px;
+        width: 208px;
+        height: 140px;
+        transform: scale(0.625);
+        transform-origin: 0 0;
+        perspective: 900px;
+      }
+
+      .env-body {
+        position: absolute;
+        inset: 0;
+        border-radius: 22px;
+        background: linear-gradient(170deg, #ffffff 0%, #efe9ff 55%, #d8cbff 100%);
+        box-shadow:
+          inset 0 2px 0 rgba(255, 255, 255, 0.9),
+          inset 0 -4px 0 rgba(139, 61, 255, 0.18),
+          0 14px 30px rgba(42, 15, 107, 0.45);
+      }
+
+      .env-groove {
+        position: absolute;
+        inset: 0;
+      }
+
+      .env-flap {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 208px;
+        height: 96px;
+        transform-origin: 50% 0%;
+        filter: drop-shadow(0 6px 6px rgba(91, 43, 224, 0.35));
+      }
+
+      .badge {
+        position: absolute;
+        right: 14px;
+        top: 22px;
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f1ebff 55%, #d9cbff 100%);
+        box-shadow:
+          inset 0 -3px 0 rgba(139, 61, 255, 0.35),
+          inset 0 2px 0 rgba(255, 255, 255, 0.9),
+          0 4px 0 #6a3cff,
+          0 12px 20px rgba(42, 15, 107, 0.55);
+      }
+
+      .badge-ring {
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.85);
+      }
+
+      .check {
+        position: absolute;
+        inset: 0;
+        width: 72px;
+        height: 72px;
+      }
+
+      .word {
+        display: flex;
+        font-size: 156px;
+        line-height: 1;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        filter: drop-shadow(0 0 28px rgba(217, 63, 191, 0.4)) drop-shadow(0 10px 30px rgba(10, 0, 40, 0.5));
+      }
+
+      .letter {
+        display: inline-block;
+      }
+
+      .subtitle {
+        display: flex;
+        margin-top: 20px;
+        font-size: 30px;
+        font-weight: 600;
+        letter-spacing: 0.5em;
+        color: var(--ink-soft);
+      }
+
+      .sub-letter {
+        display: inline-block;
+      }
+
+      .loader {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 620px;
+        margin-top: 64px;
+      }
+
+      .loader-row {
+        position: relative;
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        height: 34px;
+        font-size: 26px;
+        font-weight: 500;
+        color: var(--ink-soft);
+      }
+
+      .status {
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        white-space: nowrap;
+      }
+
+      .status-done {
+        color: var(--white);
+        font-weight: 600;
+      }
+
+      .status-dot {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--purple), var(--pink));
+      }
+
+      .percent {
+        margin-left: auto;
+        font-weight: 700;
+        color: var(--white);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .track {
+        height: 12px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.12);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+
+      .fill {
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        background: linear-gradient(90deg, var(--violet), var(--purple) 40%, var(--pink));
+        box-shadow: 0 0 20px rgba(255, 122, 192, 0.6);
+        transform-origin: 0 50%;
+      }
+
+      .tally {
+        display: flex;
+        gap: 36px;
+        font-size: 22px;
+        color: var(--ink-soft);
+      }
+
+      .tally strong {
+        color: var(--white);
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Inbox panel */
+      .panel {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex-shrink: 0;
+        width: 700px;
+        height: 840px;
+        border-radius: 40px;
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+        border: 1px solid var(--stroke);
+        box-shadow: 0 40px 80px rgba(10, 0, 40, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+        overflow: hidden;
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 30px 34px 22px;
+        border-bottom: 1px solid var(--stroke);
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      .live {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--pink);
+        box-shadow: 0 0 14px var(--pink);
+      }
+
+      .head-chip {
+        margin-left: auto;
+        padding: 6px 16px;
+        border-radius: 999px;
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--lavender);
+        background: rgba(139, 61, 255, 0.35);
+      }
+
+      .stream {
+        position: relative;
+        flex: 1;
+        overflow: hidden;
+        mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+        -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 14%, #000 86%, transparent 100%);
+      }
+
+      .scanline {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 50%;
+        height: 2px;
+        margin-top: -1px;
+        background: linear-gradient(90deg, transparent, var(--pink) 20%, var(--white) 50%, var(--pink) 80%, transparent);
+        box-shadow: 0 0 22px 4px rgba(255, 122, 192, 0.55);
+        z-index: 2;
+      }
+
+      .mail {
+        position: absolute;
+        left: 26px;
+        right: 26px;
+        top: 0;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        height: 88px;
+        padding: 0 20px;
+        border-radius: 20px;
+        background: var(--glass);
+        border: 1px solid var(--stroke);
+      }
+
+      .avatar {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--white);
+      }
+
+      .mail-text {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-width: 0;
+        flex: 1;
+      }
+
+      .mail-from {
+        font-size: 21px;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .mail-subject {
+        font-size: 17px;
+        color: var(--ink-soft);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .chips {
+        position: relative;
+        flex-shrink: 0;
+        width: 168px;
+        height: 36px;
+      }
+
+      .chip {
+        position: absolute;
+        right: 0;
+        top: 0;
+        display: flex;
+        align-items: center;
+        height: 36px;
+        padding: 0 14px;
+        border-radius: 999px;
+        font-size: 16px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .chip-new {
+        color: var(--lavender);
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .chip-follow {
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--violet), var(--purple));
+      }
+
+      .chip-remind {
+        color: #2a0620;
+        background: var(--pink);
+      }
+
+      .chip-wait {
+        color: #2a1a00;
+        background: var(--wait);
+      }
+
+      .chip-done {
+        color: #052e14;
+        background: var(--done);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="5.5"
+      data-fps="30"
+      data-width="1920"
+      data-height="1080"
+    >
+      <div id="stage-clip" class="clip" data-start="0" data-duration="5.5" data-track-index="0">
+        <div class="bg">
+          <div class="aurora aurora-violet" id="aurora-violet"></div>
+          <div class="aurora aurora-pink" id="aurora-pink"></div>
+          <div class="aurora aurora-blue" id="aurora-blue"></div>
+        </div>
+        <div class="bg vignette"></div>
+
+        <div class="scene">
+          <div class="brand" id="brand">
+            <div class="logo" id="logo">
+              <div class="bloom" id="bloom" data-layout-ignore></div>
+              <div class="tile" id="tile">
+                <div class="tile-sheen-clip"><div class="tile-sheen" id="sheen" data-layout-ignore></div></div>
+                <div class="envelope">
+                  <div class="env-body" id="env-body">
+                    <svg class="env-groove" viewBox="0 0 208 140" aria-hidden="true">
+                      <path d="M14 30 L104 92 L194 30" fill="none" stroke="#7b4dff" stroke-opacity="0.35" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+                  <svg class="env-flap" id="env-flap" viewBox="0 0 208 96" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="flap-fill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#ffffff" />
+                        <stop offset="1" stop-color="#ece4ff" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M22 0 H186 A22 22 0 0 1 200 6 L116 80 Q104 90 92 80 L8 6 A22 22 0 0 1 22 0 Z" fill="url(#flap-fill)" />
+                  </svg>
+                </div>
+                <div class="badge" id="badge">
+                  <div class="badge-ring" id="badge-ring"></div>
+                  <svg class="check" viewBox="0 0 72 72" aria-hidden="true">
+                    <path id="check-path" d="M22 37 L32 47 L51 26" pathLength="1" fill="none" stroke="#6a3cff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="word" id="word"></div>
+            <div class="subtitle" id="subtitle"></div>
+
+            <div class="loader" id="loader">
+              <div class="loader-row">
+                <span class="status" id="status-busy">Tri de votre boîte de réception…</span>
+                <span class="status status-done" id="status-done">
+                  <span class="status-dot">
+                    <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8.5 L6.5 11.5 L12.5 4.5" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                  </span>
+                  Tout est à jour
+                </span>
+                <span class="percent" id="percent">0 %</span>
+              </div>
+              <div class="track"><div class="fill" id="fill"></div></div>
+              <div class="tally">
+                <span><strong id="count-mails">0</strong> emails analysés</span>
+                <span><strong id="count-follow">0</strong> suivis créés</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel" id="panel">
+            <div class="panel-head">
+              <span class="live" id="live"></span>
+              Boîte de réception
+              <span class="head-chip">Outlook</span>
+            </div>
+            <!-- Flux décoratif à défilement rapide (cartes fictives, masquées en fondu) : exclu de l'audit. -->
+            <div class="stream" id="stream" data-layout-ignore>
+              <div class="scanline" id="scanline"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bruitage (bibliothèque media-use) : calé sur les temps du timeline. -->
+      <audio id="sfx-tile" src="assets/sfx/whoosh-short.mp3" data-start="0.15" data-duration="0.57" data-track-index="1" data-volume="0.45"></audio>
+      <audio id="sfx-panel-in" src="assets/sfx/whoosh.mp3" data-start="0.7" data-duration="0.57" data-track-index="2" data-volume="0.3"></audio>
+      <audio id="sfx-badge" src="assets/sfx/pop.mp3" data-start="0.75" data-duration="0.72" data-track-index="3" data-volume="0.5"></audio>
+      <audio id="sfx-check" src="assets/sfx/click-soft.mp3" data-start="0.95" data-duration="0.37" data-track-index="4" data-volume="0.55"></audio>
+      <audio id="sfx-riser" src="assets/sfx/riser-tail.mp3" data-start="0.85" data-duration="3.7" data-track-index="5" data-volume="0.3"></audio>
+      <audio id="sfx-sort" src="assets/sfx/sort-ticks.mp3" data-start="1.8" data-duration="2.95" data-track-index="6" data-volume="0.4"></audio>
+      <audio id="sfx-panel-out" src="assets/sfx/whoosh-short.mp3" data-start="4.2" data-duration="0.57" data-track-index="7" data-volume="0.35"></audio>
+      <audio id="sfx-done" src="assets/sfx/chime-short.mp3" data-start="4.6" data-duration="0.9" data-track-index="8" data-volume="0.55"></audio>
+    </div>
+
+    <script>
+      (function () {
+        // ── Fictitious inbox (deterministic) ──
+        var MAILS = [
+          ["Sophie Laurent", "Contrat de maintenance 2027", "remind", "Relance J+2"],
+          ["Claire Martin", "Validation du devis — intranet", "follow", "Suivi créé"],
+          ["Hugo Lefèvre", "Commande de licences", "done", "Terminé"],
+          ["Karim Benali", "Planning de livraison Q4", "wait", "En attente"],
+          ["Léa Dubois", "Facture n° 2026-418", "follow", "Suivi créé"],
+          ["Thomas Petit", "Accès VPN pour l'équipe", "done", "Terminé"],
+          ["Nadia Haddad", "Revue du cahier des charges", "remind", "Relance J+3"],
+          ["Julien Moreau", "Réunion de lancement", "wait", "En attente"],
+          ["Manon Garcia", "Congés de fin d'année", "done", "Terminé"],
+          ["Inès Roux", "Proposition commerciale", "follow", "Suivi créé"],
+          ["Yanis Morel", "Bon de commande signé ?", "remind", "Relance J+1"],
+          ["Camille Fournier", "Audit sécurité — rapport", "follow", "Suivi créé"],
+          ["Paul Girard", "Renouvellement abonnement", "wait", "En attente"],
+          ["Sarah Lambert", "Retour sur la maquette", "done", "Terminé"],
+          ["Mehdi Rousseau", "Relevé d'heures octobre", "follow", "Suivi créé"],
+          ["Élise Bonnet", "Devis fournisseur reçu", "remind", "Relance J+2"],
+        ];
+        var AVATARS = ["#6d28d9", "#a21caf", "#3b5bdb", "#9a3412", "#047857", "#7e22ce", "#be123c", "#0e7490"];
+        var CARD_COUNT = 30;
+        var CARD_H = 88;
+        var SPACING = 100;
+        var STREAM_H = 742; // panel height minus its header
+        var TRAVEL = STREAM_H + CARD_H;
+        var STREAM_START = 1.05;
+
+        function initials(name) {
+          return name
+            .split(" ")
+            .map(function (part) { return part.charAt(0); })
+            .join("")
+            .slice(0, 2);
+        }
+
+        // Wordmark and subtitle split per glyph (transform-only motion).
+        var word = document.getElementById("word");
+        "Follow-up".split("").forEach(function (c) {
+          var span = document.createElement("span");
+          span.className = "letter";
+          span.textContent = c;
+          word.appendChild(span);
+        });
+        var subtitle = document.getElementById("subtitle");
+        "MANAGER".split("").forEach(function (c) {
+          var span = document.createElement("span");
+          span.className = "sub-letter";
+          span.textContent = c;
+          subtitle.appendChild(span);
+        });
+
+        var stream = document.getElementById("stream");
+        var cards = [];
+        for (var i = 0; i < CARD_COUNT; i++) {
+          var m = MAILS[i % MAILS.length];
+          var card = document.createElement("div");
+          card.className = "mail";
+          card.innerHTML =
+            '<span class="avatar" style="background:' + AVATARS[i % AVATARS.length] + '">' + initials(m[0]) + "</span>" +
+            '<span class="mail-text"><span class="mail-from">' + m[0] + '</span><span class="mail-subject">' + m[1] + "</span></span>" +
+            '<span class="chips"><span class="chip chip-new">Nouveau</span><span class="chip chip-' + m[2] + '">' + m[3] + "</span></span>";
+          stream.appendChild(card);
+          cards.push(card);
+        }
+
+        var tl = gsap.timeline({ paused: true });
+
+        // ── Ambient ──
+        tl.fromTo("#aurora-violet", { x: -80, y: -40 }, { x: 140, y: 60, duration: 5.5, ease: "sine.inOut" }, 0);
+        tl.fromTo("#aurora-pink", { x: 120, y: 60 }, { x: -120, y: -50, duration: 5.5, ease: "sine.inOut" }, 0);
+
+        // ── 1. Logo assembles (quick) ──
+        tl.fromTo("#tile", { scale: 0.5, rotationY: -42, rotationX: 30, autoAlpha: 0 }, { scale: 1, rotationY: -10, rotationX: 8, autoAlpha: 1, duration: 0.8, ease: "expo.out" }, 0.15);
+        tl.fromTo("#bloom", { scale: 0.4, autoAlpha: 0 }, { scale: 1, autoAlpha: 0.75, duration: 0.8, ease: "sine.out" }, 0.2);
+        tl.fromTo("#env-body", { y: 30, scale: 0.86, autoAlpha: 0 }, { y: 0, scale: 1, autoAlpha: 1, duration: 0.45, ease: "power3.out" }, 0.35);
+        tl.fromTo("#env-flap", { rotationX: -175, autoAlpha: 0 }, { rotationX: 0, autoAlpha: 1, duration: 0.5, ease: "back.out(1.5)" }, 0.5);
+        tl.fromTo("#badge", { scale: 0, rotation: -100, autoAlpha: 0 }, { scale: 1, rotation: 0, autoAlpha: 1, duration: 0.45, ease: "back.out(2.2)" }, 0.75);
+        tl.fromTo("#check-path", { strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 0.25, ease: "power2.out" }, 0.95);
+        tl.fromTo("#badge-ring", { scale: 1, autoAlpha: 0.9 }, { scale: 1.9, autoAlpha: 0, duration: 0.6, ease: "power1.out" }, 1.0);
+        tl.fromTo("#sheen", { xPercent: -180 }, { xPercent: 360, duration: 0.8, ease: "power2.inOut" }, 1.1);
+        tl.to("#tile", { rotationY: -3, rotationX: 4, duration: 3, ease: "sine.inOut" }, 1.2);
+
+        // ── 2. Wordmark ──
+        tl.fromTo("#word .letter", { yPercent: 70, autoAlpha: 0, filter: "blur(10px)" }, { yPercent: 0, autoAlpha: 1, filter: "blur(0px)", duration: 0.7, ease: "expo.out", stagger: 0.04 }, 0.45);
+        gsap.utils.toArray("#subtitle .sub-letter").forEach(function (glyph, index) {
+          tl.fromTo(glyph, { x: (index - 3) * 24, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.8, ease: "circ.out" }, 0.85);
+        });
+
+        // ── 3. Loader + inbox panel enter ──
+        tl.fromTo("#loader", { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, ease: "power3.out" }, 0.95);
+        tl.fromTo("#panel", { x: 120, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.9, ease: "power4.out" }, 0.7);
+        tl.fromTo("#scanline", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.0);
+        tl.fromTo("#live", { scale: 1 }, { scale: 1.5, duration: 0.25, ease: "sine.inOut", yoyo: true, repeat: 7 }, 1.0);
+
+        // ── 4. Mail stream, accelerating: each card crosses the scan line and gets its status ──
+        var start = STREAM_START;
+        var lastCross = start;
+        cards.forEach(function (card, index) {
+          var progress = index / (CARD_COUNT - 1);
+          var duration = 1.5 - 1.08 * Math.pow(progress, 0.7); // 1.5s → 0.42s per pass
+          var cross = start + duration * ((STREAM_H / 2 + CARD_H / 2) / TRAVEL);
+          var chips = card.querySelectorAll(".chip");
+          tl.fromTo(card, { y: STREAM_H }, { y: -CARD_H, duration: duration, ease: "none" }, start);
+          tl.fromTo(chips[1], { scale: 0.6, autoAlpha: 0 }, { scale: 1, autoAlpha: 1, duration: 0.18, ease: "back.out(2.5)" }, cross);
+          tl.fromTo(chips[0], { autoAlpha: 1 }, { autoAlpha: 0, duration: 0.1, ease: "power1.in" }, cross);
+          lastCross = cross;
+          start += (SPACING * duration) / TRAVEL;
+        });
+
+        // ── 5. Counters and progress follow the stream ──
+        var counts = { mails: 0, follows: 0, pct: 0 };
+        var mailsEl = document.getElementById("count-mails");
+        var followEl = document.getElementById("count-follow");
+        var pctEl = document.getElementById("percent");
+        function renderCounts() {
+          mailsEl.textContent = String(Math.round(counts.mails));
+          followEl.textContent = String(Math.round(counts.follows));
+          pctEl.textContent = Math.round(counts.pct) + " %";
+        }
+        renderCounts();
+        var LOAD_END = lastCross + 0.15;
+        tl.fromTo(counts, { mails: 0, follows: 0, pct: 0 }, { mails: 248, follows: 37, pct: 100, duration: LOAD_END - STREAM_START, ease: "power1.in", onUpdate: renderCounts }, STREAM_START);
+        tl.fromTo("#fill", { scaleX: 0 }, { scaleX: 1, duration: LOAD_END - STREAM_START, ease: "power1.in" }, STREAM_START);
+
+        // ── 6. Resolve: status flips to "à jour", the panel settles, brand holds ──
+        tl.fromTo("#status-busy", { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -10, duration: 0.2, ease: "power2.in" }, LOAD_END);
+        tl.fromTo("#status-done", { autoAlpha: 0, y: 12 }, { autoAlpha: 1, y: 0, duration: 0.4, ease: "back.out(2)" }, LOAD_END + 0.1);
+        // The inbox is done: the panel leaves and the brand settles at the centre for the final hold.
+        var BRAND_CENTRE = (700 + 120) / 2;
+        tl.to("#panel", { x: 140, autoAlpha: 0, duration: 0.4, ease: "power2.in" }, lastCross - 0.12);
+        tl.fromTo("#brand", { x: 0 }, { x: BRAND_CENTRE, duration: 0.9, ease: "power3.inOut" }, lastCross + 0.1);
+        tl.fromTo("#sheen", { xPercent: -180 }, { xPercent: 360, duration: 0.8, ease: "power2.inOut", immediateRender: false }, LOAD_END + 0.7);
+        tl.fromTo("#logo", { scale: 1 }, { scale: 1.04, duration: 5.5 - (LOAD_END + 0.9), ease: "sine.out" }, LOAD_END + 0.9);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["main"] = tl;
+        tl.seek(0);
+      })();
+    </script>
+  </body>
+</html>

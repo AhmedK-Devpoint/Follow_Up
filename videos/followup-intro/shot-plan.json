@@ -1,0 +1,43 @@
+{
+  "category": "logo-reveal",
+  "duration_s": 5.5,
+  "fps": 30,
+  "canvas": {
+    "w": 1920,
+    "h": 1080,
+    "aspect": "16:9"
+  },
+  "style": "Glassmorphism brand sting on a deep violet aurora: split frame — brand column (3D glass envelope logo, 'Follow-up' wordmark, MANAGER, loading bar + counters) and a glass Outlook inbox panel where fictitious emails stream upward ever faster and get their status as they cross a glowing sort line. No light beams, no sparkles.",
+  "palette": [
+    "#12062e",
+    "#2a0f6b",
+    "#5b2be0",
+    "#8b3dff",
+    "#d93fbf",
+    "#ff7ac0",
+    "#efe9ff",
+    "#ffffff"
+  ],
+  "font": "Inter",
+  "beats": [
+    0.95,
+    1.5,
+    2.2,
+    2.6
+  ],
+  "export": "mp4",
+  "asset_needs": [],
+  "block": "logo-outro",
+  "customize": {
+    "pieces": "glass tile, envelope body, folding flap, badge, drawn check",
+    "loader": "progress bar + '% / emails analysés / suivis créés' counters synced to the stream",
+    "stream": "30 fictitious emails, accelerating conveyor, chip swap Nouveau → Suivi créé / Relance / En attente / Terminé at the sort line",
+    "resolve": "panel exits, brand column centres, status flips to 'Tout est à jour'"
+  },
+  "content": {
+    "logo": "hand-built vector (SVG + CSS 3D) recreating the user's glass envelope icon",
+    "tagline": "MANAGER",
+    "url": null
+  },
+  "brief": "The logo assembles in 3D and the wordmark rises while an Outlook inbox panel slides in. Fictitious emails stream through it faster and faster; each one is sorted as it crosses a glowing line while the loading bar and counters climb to 100 % / 248 emails / 37 suivis. The inbox leaves, the brand settles at centre with 'Tout est à jour', ready for the app to crossfade in. Dominant motif: mail handled at speed."
+}

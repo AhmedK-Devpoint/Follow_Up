@@ -1,0 +1,183 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 3,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#sheen\" for xPercent between 1.90s and 1.90s.",
+        "selector": "#sheen",
+        "dataAttributes": {},
+        "sourceFile": "/Users/ahmedkebbaj/Documents/GitHub/Follow-up/videos/followup-intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "overlapping_gsap_tweens",
+        "severity": "warning",
+        "message": "GSAP tweens overlap on \"#panel\" for x, autoAlpha between 0.93s and 1.33s.",
+        "selector": "#panel",
+        "dataAttributes": {},
+        "sourceFile": "/Users/ahmedkebbaj/Documents/GitHub/Follow-up/videos/followup-intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Shorten the earlier tween, move the later tween, or add `overwrite: \"auto\"`."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"stage-clip\"> is a timeline element that contains nested <div>. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#stage-clip",
+        "dataAttributes": {},
+        "sourceFile": "/Users/ahmedkebbaj/Documents/GitHub/Follow-up/videos/followup-intro/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"stage-clip\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 0.306,
+        "selector": "#aurora-violet",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": -378.39,
+          "top": -379.27,
+          "right": 921.61,
+          "bottom": 620.73,
+          "width": 1300,
+          "height": 1000
+        },
+        "containerSelector": "#root",
+        "text": "",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 378.39,
+          "top": 379.27
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -378.39,
+          "y": -379.27,
+          "width": 1300,
+          "height": 1000
+        },
+        "firstSeen": 0.306,
+        "lastSeen": 5.194,
+        "occurrences": 9,
+        "heldMs": 4888,
+        "times": [
+          0.306,
+          0.917,
+          1.528,
+          2.139,
+          2.75,
+          3.361,
+          3.972,
+          4.583,
+          5.194
+        ]
+      }
+    ],
+    "duration": 5.5,
+    "samples": [
+      0.306,
+      0.917,
+      1.528,
+      2.139,
+      2.75,
+      3.361,
+      3.972,
+      4.583,
+      5.194
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 1,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      0.306,
+      1.528,
+      2.75,
+      3.972,
+      5.194
+    ],
+    "checked": 94,
+    "passed": 94
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

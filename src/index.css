@@ -1,0 +1,182 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+/* Surfaces de l'interface : verre dépoli par défaut. */
+:root {
+  --fu-app-gradient: radial-gradient(1200px 600px at 0% 0%, rgba(87, 61, 190, 0.95), transparent 60%),
+    radial-gradient(900px 700px at 0% 100%, rgba(232, 144, 96, 0.9), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, rgba(84, 150, 200, 0.85), transparent 60%),
+    linear-gradient(160deg, #4b3aa6 0%, #8a5bb0 40%, #c86f8c 75%, #e6a274 100%);
+  --fu-glass-bg: rgba(28, 16, 74, 0.5);
+  --fu-glass-blur: blur(24px) saturate(160%);
+  --fu-glass-border: rgba(255, 255, 255, 0.22);
+  --fu-glass-shadow: 0 8px 32px rgba(23, 12, 66, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  /* Panneaux de contenu : verre clair, le dégradé transparaît sur les bords. */
+  --fu-surface-bg: rgba(250, 248, 255, 0.72);
+  --fu-surface-blur: blur(40px) saturate(170%);
+  --fu-surface-border: rgba(255, 255, 255, 0.7);
+  --fu-surface-shadow: 0 24px 60px rgba(23, 12, 66, 0.24), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  /* Cartes posées sur ces panneaux : même verre, plus dense, liseré lumineux. */
+  --fu-card-bg: rgba(255, 255, 255, 0.66);
+  --fu-card-blur: blur(12px);
+  --fu-card-border: rgba(255, 255, 255, 0.9);
+  --fu-card-shadow: 0 1px 2px rgba(40, 20, 110, 0.05), 0 10px 30px rgba(60, 30, 140, 0.08);
+  --fu-card-muted: rgba(240, 236, 252, 0.55);
+  --fu-row-hover: rgba(91, 43, 224, 0.05);
+  /* Encarts dans un panneau (ex. échéance du détail) : verre blanc lumineux plutôt qu'une teinte bleutée. */
+  --fu-inset-bg: rgba(255, 255, 255, 0.58);
+  --fu-inset-border: rgba(255, 255, 255, 0.95);
+  --fu-inset-shadow: 0 1px 2px rgba(40, 20, 110, 0.04), 0 6px 18px rgba(60, 30, 140, 0.06);
+  --fu-bar-bg: rgba(250, 248, 255, 0.82);
+  --fu-bar-blur: blur(16px);
+  --fu-page-bg: #6a4bb0;
+  --fu-radius-panel: 24px;
+  --fu-radius-card: 16px;
+  /* Texte posé directement sur le fond de page (écran de chargement). */
+  --fu-on-page: #ffffff;
+  --fu-on-page-accent: #ffffff;
+  --fu-on-page-track: rgba(255, 255, 255, 0.3);
+  /* Barre latérale : verre sombre, texte blanc. */
+  --fu-side-fg: #ffffff;
+  --fu-side-fg2: rgba(255, 255, 255, 0.94);
+  --fu-side-fg3: rgba(255, 255, 255, 0.8);
+  --fu-side-hover: rgba(255, 255, 255, 0.14);
+  --fu-side-pressed: rgba(255, 255, 255, 0.22);
+  --fu-side-selected-bg: rgba(255, 255, 255, 0.24);
+  --fu-side-selected-fg: #ffffff;
+  --fu-side-selected-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 12px rgba(23, 12, 66, 0.15);
+  --fu-side-focus: #ffffff;
+  --fu-side-logo-bg: rgba(255, 255, 255, 0.2);
+  --fu-side-logo-border: rgba(255, 255, 255, 0.35);
+  --fu-side-footer-bg: rgba(255, 255, 255, 0.1);
+  --fu-side-footer-border: rgba(255, 255, 255, 0.18);
+  --fu-side-footer-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  --fu-side-avatar-ring: rgba(255, 255, 255, 0.35);
+  --fu-side-overlay-image: linear-gradient(rgba(28, 16, 74, 0.5), rgba(28, 16, 74, 0.5)), var(--fu-app-gradient);
+  --fu-side-overlay-bg: #5a3fae;
+}
+
+/*
+ * Mode sans glassmorphisme : interface corporate, sobre, dans l'esprit d'Outlook.
+ * Fond gris très clair, barre latérale et panneaux blancs, bordures fines, accent violet sur la sélection.
+ */
+html[data-ui='flat'] {
+  --fu-app-gradient: linear-gradient(#f3f3f7, #f3f3f7);
+  --fu-page-bg: #f3f3f7;
+  --fu-radius-panel: 14px;
+  --fu-radius-card: 10px;
+  --fu-glass-bg: #ffffff;
+  --fu-glass-blur: none;
+  --fu-glass-border: #e6e5ee;
+  --fu-glass-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --fu-surface-bg: #ffffff;
+  --fu-surface-blur: none;
+  --fu-surface-border: #e6e5ee;
+  --fu-surface-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  --fu-card-bg: #ffffff;
+  --fu-card-blur: none;
+  --fu-card-border: #e9e8f0;
+  --fu-card-shadow: none;
+  --fu-card-muted: #f8f8fb;
+  --fu-row-hover: #f6f4fd;
+  --fu-inset-bg: #f8f8fb;
+  --fu-inset-border: #ebeaf2;
+  --fu-inset-shadow: none;
+  --fu-bar-bg: #ffffff;
+  --fu-bar-blur: none;
+  --fu-on-page: #3f3d52;
+  --fu-on-page-accent: #5b2be0;
+  --fu-on-page-track: #e3defa;
+  --fu-side-fg: #1f1d2e;
+  --fu-side-fg2: #3f3d52;
+  --fu-side-fg3: #6e6c80;
+  --fu-side-hover: #f4f2fb;
+  --fu-side-pressed: #ebe7fa;
+  --fu-side-selected-bg: #efeafe;
+  --fu-side-selected-fg: #4a24c4;
+  --fu-side-selected-shadow: none;
+  --fu-side-focus: #5b2be0;
+  --fu-side-logo-bg: #5b2be0;
+  --fu-side-logo-border: transparent;
+  --fu-side-footer-bg: #f8f8fb;
+  --fu-side-footer-border: #ebeaf2;
+  --fu-side-footer-shadow: none;
+  --fu-side-avatar-ring: #e3defa;
+  --fu-side-overlay-image: none;
+  --fu-side-overlay-bg: #ffffff;
+}
+
+/* Halos décoratifs flous : absents du mode sans verre. */
+html[data-ui='flat'] [data-orb] {
+  display: none;
+}
+
+body {
+  background: var(--fu-page-bg);
+}
+
+/*
+ * Barres de défilement minimalistes : fines, sans piste, décollées du bord et des coins arrondis.
+ * Chrome ignore les styles ::-webkit-scrollbar dès que scrollbar-color est défini :
+ * les propriétés standard sont donc réservées à Firefox.
+ */
+@supports (-moz-appearance: none) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(20, 18, 51, 0.18) transparent;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* Reste à l'écart des coins arrondis des panneaux (rayon 24px). */
+  margin-block: 22px;
+  margin-inline: 22px;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Pouce visuel de 4px, décollé de 2px du bord du panneau. */
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background-clip: padding-box;
+  background-color: rgba(20, 18, 51, 0.14);
+}
+
+/* Un peu plus visible quand on survole la zone qui défile. */
+:hover::-webkit-scrollbar-thumb {
+  background-color: rgba(20, 18, 51, 0.24);
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+  background-color: rgba(20, 18, 51, 0.4);
+}
+
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-button {
+  display: none;
+  background: transparent;
+}
