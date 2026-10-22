@@ -4,6 +4,8 @@
 
 Follow-up Manager se connecte à votre Outlook et transforme les emails importants en **suivis** : une échéance, un statut (à traiter, en attente, terminé) et des notes. Un tableau de bord montre les relances en retard et les échéances de la semaine, et chaque suivi s'ouvre directement dans Outlook.
 
+![Application Follow-up Manager Beta loading](docs/Loading.png)
+
 ## Se connecter
 
 1. Installez Node.js 20 ou plus récent, puis lancez :
